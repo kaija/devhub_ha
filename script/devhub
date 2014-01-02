@@ -1,0 +1,43 @@
+#! /bin/sh
+do_start()
+{
+	devhub &
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+	killall devhub
+}
+
+#
+# Function that sends a SIGHUP to the daemon/service
+#
+do_reload() {
+	do_stop
+	do_start
+}
+
+case "$1" in
+  start)
+	do_start
+	;;
+  stop)
+	do_stop
+	;;
+  status)
+	;;
+  restart|force-reload)
+	do_stop
+	do_start
+	;;
+  *)
+	#echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
+	echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
+	exit 3
+	;;
+esac
+
+:
